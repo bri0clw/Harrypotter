@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title> Harry potter </title>
+     <link rel="stylesheet" href="hp.css">  
+    <link rel="icon" type="image/png" href="assets/hp2.jpg">
+</head>
+<body>
+
+     
+
+<div class="contenedor">
+    <img src="inicio.png" alt="Imagen" id="imagen">
+    <div class="boton" id="boton">
+        <button onclick="ocultarTodo()">ACEPTAR</button>
+    </div>
+</div>
+
+<script>
+
+   function ocultarTodo() {
+    const img = document.getElementById("imagen");
+    const boton = document.getElementById("boton");
+
+    img.style.display = "none";   
+    boton.style.display = "none"; 
+}
+</script>
+
+<div class="harry">
+<h1>Bienvenido a Hogwarts</h1>
+</div>
+<div class="harry"><p> <h3> Casas de Hogwarts</h3></p></div>
+
+<div class="casas">
+<img src="g.png" alt="">
+<img src="s.png" alt="" >
+<img src="r.png" alt="" >
+<img src="h.png" alt="" >
+ </div>
+
+<div id="personajes" class="contenedor"></div>
+ <script>
+        const apiURL = "https://potterhead-api.vercel.app/api/characters";
+
+        const contenedor = document.getElementById("personajes");
+        fetch(apiURL)
+            .then(response => response.json())
+            .then(data => {
+                data.forEach(personaje => {
+                
+                    const div = document.createElement("div");
+                    div.classList.add("tarjeta");
+                    div.innerHTML = `
+                        <h3>${personaje.name}</h3>
+                        <p><strong>Casa:</strong> ${personaje.house || 'Desconocida'}</p>
+                        <img src="${personaje.image || 'https://via.placeholder.com/200x300'}" alt="${personaje.name}">
+                    `;
+
+         
+                    contenedor.appendChild(div);
+                });
+            })
+            .catch(error => {
+                contenedor.innerHTML = "<p>Error al cargar la API</p>";
+                console.error("Error:", error);
+            });
+    </script>
+
+
+
+
+
+</body>
+</html>
